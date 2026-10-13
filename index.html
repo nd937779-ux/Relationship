@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Journey - Relationship Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff4b6e;
+            --secondary: #ff758c;
+            --accent: #ffeb3b;
+            --bg-gradient: linear-gradient(135deg, #f8bbd0, #fce4ec, #f8bbd0);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text-main: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px 10px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #d81b60;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: #880e4f;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Profiles Card */
+        .profiles-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.15);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .profile {
+            text-align: center;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #f8bbd0;
+            border: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 0 auto 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile h3 {
+            font-size: 1.1rem;
+            color: #ad1457;
+        }
+
+        .heart-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            animation: heartbeat 1.2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Timer Card */
+        .timer-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.15);
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .timer-card h2 {
+            font-size: 1.2rem;
+            color: #ad1457;
+            margin-bottom: 15px;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .time-box {
+            background: rgba(255, 75, 110, 0.1);
+            padding: 12px 5px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 75, 110, 0.2);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #d81b60;
+        }
+
+        .time-box label {
+            font-size: 0.75rem;
+            color: #880e4f;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.15);
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .section-card h3 {
+            font-size: 1.2rem;
+            color: #ad1457;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .milestone-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .milestone-item:last-child {
+            border-bottom: none;
+        }
+
+        .milestone-info h4 {
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .milestone-info p {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .milestone-badge {
+            background: #ff4b6e;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Navigation Bar Bottom */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: 0.3s;
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Love Journey</h1>
+        <p>Our Forever Story</p>
+    </header>
+
+    <div class="container">
+        <!-- Profiles Section -->
+        <div class="profiles-card">
+            <div class="profile">
+                <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                <h3>Sajal Das</h3>
+            </div>
+            <div class="heart-icon">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <div class="profile">
+                <div class="avatar"><i class="fa-solid fa-user-heart"></i></div>
+                <h3>Partner</h3>
+            </div>
+        </div>
+
+        <!-- Live Love Timer -->
+        <div class="timer-card">
+            <h2>Together Since 14 Feb, 2024</h2>
+            <div class="time-grid">
+                <div class="time-box">
+                    <span id="days">0</span>
+                    <label>Days</label>
+                </div>
+                <div class="time-box">
+                    <span id="hours">0</span>
+                    <label>Hours</label>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">0</span>
+                    <label>Minutes</label>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">0</span>
+                    <label>Seconds</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Milestones Section -->
+        <div class="section-card">
+            <h3><i class="fa-solid fa-award"></i> Special Milestones</h3>
+            <div class="milestone-item">
+                <div class="milestone-info">
+                    <h4>First Meet</h4>
+                    <p>The day everything changed</p>
+                </div>
+                <div class="milestone-badge">Completed</div>
+            </div>
+            <div class="milestone-item">
+                <div class="milestone-info">
+                    <h4>First Proposal</h4>
+                    <p>A magical moment</p>
+                </div>
+                <div class="milestone-badge">Completed</div>
+            </div>
+            <div class="milestone-item">
+                <div class="milestone-info">
+                    <h4>1st Anniversary</h4>
+                    <p>Celebrating one year together</p>
+                </div>
+                <div class="milestone-badge">Upcoming</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="nav-bar">
+        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i>Home</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-flag-checkered"></i>Milestones</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-images"></i>Moments</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i>Settings</a>
+    </div>
+
+    <script>
+        // Set relationship start date here (Year, Month index 0-11, Day, Hour, Minute, Second)
+        const startDate = new Date(2024, 1, 14, 0, 0, 0);
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+  </html>
+  
