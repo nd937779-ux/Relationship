@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Journey - Relationship Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #fce7f3 0%, #ffe4e6 100%); min-height: 100vh; }
+        .heart-bg { background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); }
+        @keyframes pulse-slow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+        .animate-pulse-slow { animation: pulse-slow 2s infinite ease-in-out; }
+    </style>
+</head>
+<body class="text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-heart text-rose-500 text-2xl animate-pulse-slow"></i>
+            <span class="font-bold text-xl text-rose-600 tracking-wide">Love Journey</span>
+        </div>
+        <div class="text-sm font-medium text-gray-600 bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
+            <i class="fa-solid fa-calendar-days text-rose-400 mr-1"></i> <span id="headerDate">Loading...</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 sm:p-6 pb-24">
+
+        <!-- Profiles Section -->
+        <section class="heart-bg rounded-3xl p-6 shadow-xl mb-6 border border-rose-100 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-rose-200 rounded-full blur-2xl opacity-50"></div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 my-2">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-rose-400 to-pink-500 p-1 shadow-md">
+                        <img id="partner1Img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Partner 1" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 id="partner1Name" class="font-semibold text-lg mt-2 text-gray-700">Sajal Das</h3>
+                </div>
+                <div class="bg-rose-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg animate-pulse-slow my-2 sm:my-0">
+                    <i class="fa-solid fa-heart text-xl"></i>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-pink-400 to-rose-400 p-1 shadow-md">
+                        <img id="partner2Img" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150" alt="Partner 2" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 id="partner2Name" class="font-semibold text-lg mt-2 text-gray-700">My Love</h3>
+                </div>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">Together since: <span id="startDateText" class="font-medium text-rose-600">January 1, 2024</span></p>
+        </section>
+
+        <!-- Live Love Timer Section -->
+        <section class="bg-gradient-to-br from-rose-500 to-pink-600 text-white rounded-3xl p-6 shadow-xl mb-6 text-center">
+            <h2 class="text-lg font-medium opacity-90 mb-4"><i class="fa-solid fa-clock mr-2"></i> Our Time Together</h2>
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/20">
+                    <span id="years" class="text-2xl sm:text-3xl font-bold block">0</span>
+                    <span class="text-xs uppercase tracking-wider opacity-80">Years</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/20">
+                    <span id="months" class="text-2xl sm:text-3xl font-bold block">0</span>
+                    <span class="text-xs uppercase tracking-wider opacity-80">Months</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/20">
+                    <span id="days" class="text-2xl sm:text-3xl font-bold block">0</span>
+                    <span class="text-xs uppercase tracking-wider opacity-80">Days</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/20">
+                    <span id="hours" class="text-2xl sm:text-3xl font-bold block">0</span>
+                    <span class="text-xs uppercase tracking-wider opacity-80">Hours</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/20">
+                    <span id="minutes" class="text-2xl sm:text-3xl font-bold block">0</span>
+                    <span class="text-xs uppercase tracking-wider opacity-80">Mins</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/20">
+                    <span id="seconds" class="text-2xl sm:text-3xl font-bold block">0</span>
+                    <span class="text-xs uppercase tracking-wider opacity-80">Secs</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabs Content Container -->
+        <div id="tabContent" class="space-y-6">
+            <!-- Home Tab / Milestones View -->
+            <div class="tab-pane active" id="homeTab">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-800 flex items-center">
+                        <i class="fa-solid fa-flag-checkered text-rose-500 mr-2"></i> Milestones
+                    </h3>
+                </div>
+                <div class="space-y-3" id="milestonesList">
+                    <div class="heart-bg p-4 rounded-2xl shadow-sm border border-rose-100 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-rose-100 text-rose-500 w-10 h-10 rounded-full flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">First Meet</h4>
+                                <p class="text-xs text-gray-500">The day everything changed</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-medium bg-rose-50 text-rose-600 px-3 py-1 rounded-full border border-rose-100">Completed</span>
+                    </div>
+                    <div class="heart-bg p-4 rounded-2xl shadow-sm border border-rose-100 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-rose-100 text-rose-500 w-10 h-10 rounded-full flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-ring"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">The Proposal</h4>
+                                <p class="text-xs text-gray-500">She said Yes!</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-medium bg-rose-50 text-rose-600 px-3 py-1 rounded-full border border-rose-100">Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bg-white/90 backdrop-blur-md border-t border-rose-100 fixed bottom-0 left-0 right-0 py-3 px-6 shadow-lg z-50">
+        <div class="max-w-md mx-auto flex justify-around text-gray-500">
+            <button onclick="switchTab('home')" class="flex flex-col items-center text-rose-600 focus:outline-none" id="navHome">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span class="text-xs mt-1 font-medium">Home</span>
+            </button>
+            <button onclick="switchTab('vault')" class="flex flex-col items-center hover:text-rose-500 focus:outline-none" id="navVault">
+                <i class="fa-solid fa-vault text-lg"></i>
+                <span class="text-xs mt-1 font-medium">Vault</span>
+            </button>
+            <button onclick="switchTab('settings')" class="flex flex-col items-center hover:text-rose-500 focus:outline-none" id="navSettings">
+                <i class="fa-solid fa-gear text-lg"></i>
+                <span class="text-xs mt-1 font-medium">Settings</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Script to run timer and interactivity -->
+    <script>
+        // Set Relationship Start Date (e.g., Jan 1, 2024)
+        const startDate = new Date("2024-01-01T00:00:00");
+
+        document.getElementById('startDateText').innerText = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('headerDate').innerText = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+        function updateTimer() {
+            const now = new Date();
+            let diff = now - startDate;
+
+            let seconds = Math.floor(diff / 1000) % 60;
+            let minutes = Math.floor(diff / (1000 * 60)) % 60;
+            let hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24)) % 30;
+            let months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44)) % 12;
+            let years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+
+            document.getElementById('years').innerText = years;
+            document.getElementById('months').innerText = months;
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        function switchTab(tab) {
+            const content = document.getElementById('tabContent');
+            if(tab === 'home') {
+                content.innerHTML = `
+                    <div class="tab-pane active" id="homeTab">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-gray-800 flex items-center">
+                                <i class="fa-solid fa-flag-checkered text-rose-500 mr-2"></i> Milestones
+                            </h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="heart-bg p-4 rounded-2xl shadow-sm border border-rose-100 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-rose-100 text-rose-500 w-10 h-10 rounded-full flex items-center justify-center font-bold">
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">First Meet</h4>
+                                        <p class="text-xs text-gray-500">The day everything changed</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-medium bg-rose-50 text-rose-600 px-3 py-1 rounded-full border border-rose-100">Completed</span>
+                            </div>
+                            <div class="heart-bg p-4 rounded-2xl shadow-sm border border-rose-100 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-rose-100 text-rose-500 w-10 h-10 rounded-full flex items-center justify-center font-bold">
+                                        <i class="fa-solid fa-ring"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">The Proposal</h4>
+                                        <p class="text-xs text-gray-500">She said Yes!</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-medium bg-rose-50 text-rose-600 px-3 py-1 rounded-full border border-rose-100">Completed</span>
+                            </div>
+                        </div>
+                    </div>`;
+            } else if(tab === 'vault') {
+                content.innerHTML = `
+                    <div class="tab-pane">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fa-solid fa-vault text-rose-500 mr-2"></i> Memory Vault
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="heart-bg p-5 rounded-2xl border border-rose-100 text-center shadow-sm">
+                                <i class="fa-solid fa-folder-open text-rose-400 text-3xl mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">First Meet</h4>
+                                <p class="text-xs text-gray-500 mt-1">Photos & Notes</p>
+                            </div>
+                            <div class="heart-bg p-5 rounded-2xl border border-rose-100 text-center shadow-sm">
+                                <i class="fa-solid fa-folder-open text-rose-400 text-3xl mb-2"></i>
+                                <h4 class="font-semibold text-gray-800">Valentine</h4>
+                                <p class="text-xs text-gray-500 mt-1">Special moments</p>
+                            </div>
+                        </div>
+                    </div>`;
+            } else if(tab === 'settings') {
+                content.innerHTML = `
+                    <div class="tab-pane">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fa-solid fa-gear text-rose-500 mr-2"></i> Settings
+                        </h3>
+                        <div class="heart-bg p-5 rounded-2xl border border-rose-100 space-y-4 shadow-sm">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Your Name</label>
+                                <input type="text" value="Sajal Das" class="w-full px-4 py-2 rounded-xl border border-rose-200 focus:outline-none focus:border-rose-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Partner Name</label>
+                                <input type="text" value="My Love" class="w-full px-4 py-2 rounded-xl border border-rose-200 focus:outline-none focus:border-rose-500 text-sm">
+                            </div>
+                            <button onclick="alert('Settings saved successfully!')" class="w-full bg-rose-500 text-white font-medium py-2 rounded-xl shadow-md hover:bg-rose-600 transition">Save Changes</button>
+                        </div>
+                    </div>`;
+            }
+        }
+    </script>
+</body>
+          </html>
+          
